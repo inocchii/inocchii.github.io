@@ -1,0 +1,3 @@
+[submodule "daily_report"]
+	path = daily_report
+	url = https://github.com/NCMBMania/daily_report
