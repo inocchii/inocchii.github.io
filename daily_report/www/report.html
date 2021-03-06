@@ -43,9 +43,10 @@
     // 日報の表示処理
     function viewReports(reports) {
       const html = [];
-      html.push(`<ons-list-header>${day}</ons-list-header>`)
-      html.push(`<ons-list-header>${dayjs(day).format('YYYY年MM月DD日の日報')}</ons-list-header>`)
+      //html.push(`<ons-list-header>${day}</ons-list-header>`)
+      //html.push(`<ons-list-header>${dayjs(day).format('YYYY年MM月DD日の日報')}</ons-list-header>`)
       reports.forEach(report => {
+        html.push(`<ons-list-header>${report.get('day').format('YYYY年MM月DD日の日報')}</ons-list-header>`)
         html.push(`
           <ons-list-item expandable>
             ${report.get('user').displayName}
