@@ -48,10 +48,23 @@
 
     // 新規ユーザ登録処理です
     async function registerUser(displayName, userName, password) {
+      const user = new ncmb.User();
+      user
+        .set('displayName', displayName)
+        .set('userName', userName)
+        .set('password', password);
+      await user.signUpByAccount();
     }
 
     // ユーザログイン処理です
     async function loginUser(userName, password) {
+      await ncmb.User.login(userName, password);
+      const user = ncmb.User.getCurrentUser();
+      const acl = new ncmb.Acl();
+      acl
+        .setPublicReadAccess(true)
+        .setUserWriteAccess(user, true);
+      await user.set('acl', acl).update();
     }
   </script>
 </ons-page>
