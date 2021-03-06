@@ -22,7 +22,7 @@
         // 該当日の日報を取得
         const reports = await fetchReports(day);
         // 取得した日報を表示
-        viewReports(reports);
+        viewReports(day,reports);
       })
     }
 
@@ -41,12 +41,11 @@
     }
 
     // 日報の表示処理
-    function viewReports(reports) {
+    function viewReports(day,reports) {
       const html = [];
-      //html.push(`<ons-list-header>${day}</ons-list-header>`)
       //html.push(`<ons-list-header>${dayjs(day).format('YYYY年MM月DD日の日報')}</ons-list-header>`)
       reports.forEach(report => {
-        html.push(`<ons-list-header>${report.get('day')}</ons-list-header>`)
+        html.push(`<ons-list-header>${dayjs(day).format('YYYY年MM月DD日の日報')}</ons-list-header>`)
         html.push(`
           <ons-list-item expandable>
             ${report.get('user').displayName}
