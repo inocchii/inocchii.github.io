@@ -23,6 +23,27 @@
         // 情報の取得
         const date = new Date($('#day').val());
         // 日報の保存処理
+        const Report = ncmb.DataStore('Report');
+        const report = (await findOrCreate(date)) || new Report();
+        const acl = new ncmb.Acl();
+        const user = ncmb.User.getCurrentUser();
+        acl
+          .setPublicReadAccess(true)
+          .setUserWriteAccess(user, true);
+        report
+          .set('day', date)
+          .set('report', $('#report').val())
+          .set('user', user)
+          .set('userName', user.get('userName'))
+          .set('acl', acl);
+        const method = report.objectId ? 'update' : 'save';
+        const message = method === 'update' ? '更新' : '作成';
+        try {
+          await report[method]();
+          ons.notification.alert('日報の${message}に成功しました');
+        } catch (e) {
+          ons.notification.alert('日報の${message}に失敗しました');
+        }
       });
 
       const user = ncmb.User.getCurrentUser();
@@ -49,11 +70,19 @@
       const report = await findOrCreate(date);
       if (report.objectId) {
         // 日報があれば、その内容を表示
+        $('#report').val(report.get('report'));
       }
     }
 
     async function findOrCreate(date) {
       // すでに同じ日付の日報があればそれを返す
+      const Report = ncmb.DataStore('Report');
+      const user = ncmb.User.getCurrentUser();
+      const report = await Report
+        .equalTo('userName', user.get('userName'))
+        .equalTo('day', date)
+        .fetch();
+      return report.objectId ? report : new Report();
     }
 
   </script>

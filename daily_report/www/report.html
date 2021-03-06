@@ -33,6 +33,11 @@
 
     // 日報の取得
     async function fetchReports(day) {
+      const Report = ncmb.DataStore('Report');
+      return await Report
+        .equalTo('day', day)
+        .include('user')
+        .fetchAll();
     }
 
     // 日報の表示処理
