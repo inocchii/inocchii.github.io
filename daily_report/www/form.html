@@ -22,10 +22,16 @@
       $('#send-report').on('click', async e => {
         // 情報の取得
         const date = new Date($('#day').val());
+        //------------------
         // 日報の保存処理
+        //------------------
+        // Report : NCMBのデータストアオブジェクト
         const Report = ncmb.DataStore('Report');
+        // report : Reportのレコードオブジェクト
         const report = (await findOrCreate(date)) || new Report();
+        // acl : NCMBの権限オブジェクト
         const acl = new ncmb.Acl();
+        // user : NCMBのユーザオブジェクト
         const user = ncmb.User.getCurrentUser();
         acl
           .setPublicReadAccess(true)
@@ -39,8 +45,9 @@
         const method = report.objectId ? 'update' : 'save';
         const message = method === 'update' ? '更新' : '作成';
         try {
+          // report[update/save] : NCMBのレコードオブジェクト更新メソッド
           await report[method]();
-          ons.notification.alert('日報の${message}に成功しました');
+          ons.notification.alert('日報の${message}に成功しました'+method+message);
         } catch (e) {
           ons.notification.alert('日報の${message}に失敗しました');
         }
