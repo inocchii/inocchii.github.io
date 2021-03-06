@@ -1,0 +1,55 @@
+<ons-page>
+  <ons-toolbar>
+    <div class="center" id="form-title">日報閲覧</div>
+  </ons-toolbar>
+  <div style="text-align: center; margin-top: 60px;">
+    <h3>日付を選択してください</h3>
+    <p>
+      <ons-input id="date" modifier="underbar" type="date" float></ons-input>
+    </p>
+    <p style="margin-top: 30px;">
+      <ons-button id="view-report">日報を閲覧する</ons-button>
+    </p>
+    <ons-list id="reports">
+    </ons-list>
+  </div>
+  <script>
+    ons.getScriptPage().onInit = async function() {
+      // 日報を閲覧するボタンを押した時の処理
+      $('#view-report').on('click', async e => {
+        // 検索対象の日付を取得
+        const day = new Date($('#date').val());
+        // 該当日の日報を取得
+        const reports = await fetchReports(day);
+        // 取得した日報を表示
+        viewReports(reports);
+      })
+    }
+
+    ons.getScriptPage().onShow = async function() {
+      $('#date').val(dayjs().format('YYYY-MM-DD'));
+
+    }
+
+    // 日報の取得
+    async function fetchReports(day) {
+    }
+
+    // 日報の表示処理
+    function viewReports(reports) {
+      const html = [];
+      html.push(`<ons-list-header>${dayjs(day).format('YYYY年MM月DD日の日報')}</ons-list-header>`)
+      reports.forEach(report => {
+        html.push(`
+          <ons-list-item expandable>
+            ${report.get('user').displayName}
+            <div class="expandable-content">
+              ${report.get('report').replace(/\n/g, '<br />')}
+            </div>
+          </ons-list-item>
+        `)
+      });
+      $('#reports').html(html.join(''));
+    }
+  </script>
+</ons-page>

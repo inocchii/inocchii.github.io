@@ -1,0 +1,60 @@
+<ons-page>
+  <ons-navigator id="formNav">
+    <ons-toolbar>
+      <div class="center" id="form-title"></div>
+    </ons-toolbar>
+    <div style="text-align: center; margin-top: 60px;">
+      <h3>日報登録</h3>
+      <p>
+        <ons-input id="day" modifier="underbar" type="date" float></ons-input>
+      </p>
+      <p>
+        <textarea id="report" class="textarea textarea--transparent" rows="10" placeholder="今日の作業内容を書いてください"></textarea>
+      </p>
+      <p style="margin-top: 30px;">
+        <ons-button id="send-report">日報を登録する</ons-button>
+      </p>
+    </div>
+  </ons-navigator>
+  <script>
+    ons.getScriptPage().onInit = async function() {
+      // 日報を登録するボタンを押した時の処理です
+      $('#send-report').on('click', async e => {
+        // 情報の取得
+        const date = new Date($('#day').val());
+        // 日報の保存処理
+      });
+
+      const user = ncmb.User.getCurrentUser();
+      if (!user) {
+        // 未ログインの場合
+        return $('#formNav')[0].pushPage('login.html');
+      }
+      try {
+        // セッションの有効性を確認
+        await ncmb.DataStore('Hello').fetch();
+      } catch (e) {
+        // セッションが無効な場合エラーになるので、その場合はlocalStorageの認証データを削除
+        localStorage.removeItem(`NCMB/${ncmb.apikey}/CurrentUser`);
+        ncmb.sessionToken = null;
+        // ログイン画面に遷移
+        return $('#formNav')[0].pushPage('login.html');
+      }
+    }
+
+    ons.getScriptPage().onShow = async function() {
+      $('#form-title').html('日報登録フォーム');
+      const date = new Date(dayjs().format('YYYY-MM-DD'));
+      $('#day').val(dayjs(date).format('YYYY-MM-DD'));
+      const report = await findOrCreate(date);
+      if (report.objectId) {
+        // 日報があれば、その内容を表示
+      }
+    }
+
+    async function findOrCreate(date) {
+      // すでに同じ日付の日報があればそれを返す
+    }
+
+  </script>
+</ons-page>
