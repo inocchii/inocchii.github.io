@@ -68,9 +68,9 @@
       <h2>Cards</h2>
       <ons-list-title>Card List</ons-list-title>
       <ons-list>
-        <ons-list-item onclick="customPush2(event)">Card One</ons-list-item>
-        <ons-list-item onclick="customPush2(event)">Card Two</ons-list-item>
-        <ons-list-item onclick="customPush2(event)">Card Three</ons-list-item>
+        <ons-list-item onclick="customPush2(event,'j1','json/j1.json')">Card One</ons-list-item>
+        <ons-list-item onclick="customPush2(event,'j2','json/j2.json')">Card Two</ons-list-item>
+        <ons-list-item onclick="customPush2(event,'j3','json/j3.json')">Card Three</ons-list-item>
       </ons-list>
     </ons-page>
   </template>
@@ -84,9 +84,13 @@
       </ons-toolbar>
   
       <ons-card>
-        <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
         <div class="title"></div>
         <div class="content">
+          <ons-list class="list1">
+            <ons-list-header></ons-list-header>
+            <ons-list-item class="item1"></ons-list-item>
+            <ons-list-item class="item2"></ons-list-item>
+          </ons-list>
           <div>
             <ons-button>
               <ons-icon icon="ion-thumbsup"></ons-icon>
@@ -145,18 +149,39 @@
   <script>
   document.addEventListener('init', function (event) {
     if (event.target.id === 'pageNav1') {
-      var title = event.target.data && event.target.data.title ? event.target.data.title : 'Custom Page';
+      let title = event.target.data && event.target.data.title ? event.target.data.title : 'Custom Page';
       event.target.querySelector('ons-toolbar div.center').textContent = title;
     }
+
     if (event.target.id === 'pageNav2') {
-      var cardTitle = event.target.data && event.target.data.cardTitle ? event.target.data.cardTitle : 'Custom Card';
+      // data にセットされた値を使ってリストに表示。
+      let cardTitle = event.target.data && event.target.data.cardTitle ? event.target.data.cardTitle : 'not title';
+      let localId   = event.target.data && event.target.data.localId ? event.target.data.localId : 'no id';
+      let jsonUrl   = event.target.data && event.target.data.jsonUrl ? event.target.data.jsonUrl : 'no url';
       event.target.querySelector('ons-card div.title').textContent = cardTitle;
+      event.target.querySelector('ons-card ons-list.list1 ons-list-header').textContent = cardTitle;
+      event.target.querySelector('ons-card ons-list.list1 ons-list-item.item1').textContent = localId;
+      event.target.querySelector('ons-card ons-list.list1 ons-list-item.item2').textContent = jsonUrl;
+      // ローカルストレージに存在すれば取得
+      let myStorage = localStorage;
+      let myJsonStr = myStorage.getItem(localId);
+      // 指定URLから新しいJSONを取得
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET',jsonUrl);
+      xhr.onload = () => {
+        let newJsonStr = xhr.response;
+        console.log(newJsonStr);
+        // ローカルストレージと異なれば格納
+        if ( myJsonStr != newJsonStr ) {
+          myStorage.setItem(localId,newJsonStr);
+        }
+      }
     }
     if (event.target.id === 'pageNav3') {
-      var pageTitle = event.target.data && event.target.data.pageTitle ? event.target.data.pageTitle : 'Custom Page';
+      let pageTitle = event.target.data && event.target.data.pageTitle ? event.target.data.pageTitle : 'Custom Page';
       event.target.querySelector('ons-toolbar div.center').textContent = pageTitle;
       console.log("iframe "+event.target.querySelector('iframe').src);
-      var pageUrl   = event.target.data && event.target.data.pageUrl ? event.target.data.pageUrl : '';
+      let pageUrl   = event.target.data && event.target.data.pageUrl ? event.target.data.pageUrl : '';
       event.target.querySelector('iframe').src = pageUrl;
     }
   });
@@ -165,8 +190,10 @@
     myNavigator.pushPage('pageNav1.html', { data: { title: myNavigator.topPage.querySelector('ons-input').value } })
   };
   
-  var customPush2 = function (event) {
-    myNavigator.pushPage('pageNav2.html', { data: { cardTitle: event.target.textContent } })
+  var customPush2 = function (event,argLocalId,argUrl) {
+    myNavigator.pushPage('pageNav2.html'
+      , { data: { cardTitle: event.target.textContent ,localId: argLocalId ,jsonUrl: argUrl } }
+    )
   };
 
   var customPush3 = function (event,argUrl) {
