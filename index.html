@@ -91,14 +91,6 @@
             <ons-list-item class="item1"></ons-list-item>
             <ons-list-item class="item2"></ons-list-item>
           </ons-list>
-          <div>
-            <ons-button>
-              <ons-icon icon="ion-thumbsup"></ons-icon>
-            </ons-button>
-            <ons-button>
-              <ons-icon icon="ion-share"></ons-icon>
-            </ons-button>
-          </div>
           <ons-list>
             <ons-list-header>Bindings</ons-list-header>
             <ons-list-item>Vue</ons-list-item>
@@ -162,19 +154,46 @@
       event.target.querySelector('ons-card ons-list.list1 ons-list-header').textContent = cardTitle;
       event.target.querySelector('ons-card ons-list.list1 ons-list-item.item1').textContent = localId;
       event.target.querySelector('ons-card ons-list.list1 ons-list-item.item2').textContent = jsonUrl;
-      // ローカルストレージに存在すれば取得
-      let myStorage = localStorage;
-      let myJsonStr = myStorage.getItem(localId);
-      // 指定URLから新しいJSONを取得
-      let xhr = new XMLHttpRequest();
-      xhr.open('GET',jsonUrl);
-      xhr.onload = () => {
-        let newJsonStr = xhr.response;
-        console.log(newJsonStr);
-        // ローカルストレージと異なれば格納
-        if ( myJsonStr != newJsonStr ) {
-          myStorage.setItem(localId,newJsonStr);
+
+      try {
+        // ローカルストレージに存在すれば取得
+        console.log("using localStorage id="+localId+" jsonUrl="+jsonUrl);
+        let myStorage = localStorage;
+        let myJsonStr = myStorage.getItem(localId);
+        console.log("get localStorage myJsonStr="+myJsonStr);
+
+        // 指定URLから新しいJSONを取得
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET',jsonUrl);
+        // エラー処理
+        xhr.onerror = () => {
+          console.log("XMLHttpRequest failed ! jsonUrl="+jsonUrl+" response=".xhr.response);
         }
+        // 正常取得処理
+        xhr.onload = () => {
+          try {
+            let newJsonStr = xhr.response;
+            // 内容が正しいかの検証が必要
+            let newJson = JSON.parse(newJsonStr);
+            // ローカルストレージと異なれば格納
+            if ( myJsonStr != newJsonStr ) {
+              console.log("myJson is old ! New="+newJsonStr);
+              myStorage.setItem(localId,newJsonStr);
+            } else {
+              console.log("myJson is not old !");
+            }
+            myJsonStr = myStorage.getItem(localId);
+            let myJson = JSON.parse(myJsonStr);
+            Object.keys(myJson).forEach(function (key) {
+              console.log("key:"+key+" val:"+myJson[key]);
+            });
+          } catch (error) {
+            console.log("exception error="+error);
+          }
+        }
+        xhr.send();
+      } catch (error) {
+        console.log("exception error="+error);
       }
     }
     if (event.target.id === 'pageNav3') {
