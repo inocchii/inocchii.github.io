@@ -7,7 +7,20 @@
   </head>
   <body>
     <div id="app">
-      <p>{{ text }}</p>
+      <button @click="handleClick">Push</button>
+      <button v-on:click="handleClick">Push</button>
+      <p>{{ text1 }} and {{ text2 }}</p>
+      <button @click="increment">+1</button>
+      <button @click="decrement">-1</button>
+      <p>{{ count }}</p>
+      <div v-if="count >= 6">
+        <p>合格！</p>
+        <section><h2>おめでとうございます！</h2></section>
+      </div>
+      <div v-else>
+        <p>不合格</p>
+        <section><h2>残念でした</h2></section>
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script><!-- 最新バージョン -->
     <script src="./script/script.js"></script>
