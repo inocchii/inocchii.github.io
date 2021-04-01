@@ -10,22 +10,42 @@ const objVue = new Vue({
         return {
             text1: 'hello Vue.js',
             text2: 'goodbye jQuery',
-            count: 0
+            count: 0,
+            passLine: 6,
+            fInit: true,
+            name: 'name'
         }
     },
     // methods: メソッド定義 = Action
     methods: {
         handleClick() {
-            this.text2 += " clicked!"
+            this.text2 += " clicked!";
+            this.fInit = false;
         },
         increment() {
             this.count++;
+            this.fInit = false;
         },
         decrement() {
             this.count--;
+            this.fInit = false;
+        }
+    },
+    // computed: 算出プロパティ（関数）
+    computed: {
+        isInit() {
+            return this.fInit;
+        },
+        isNotInit() {
+            if ( this.fInit ) {
+                return false;
+            }
+            return true;
+        },
+        isPass() {
+            return this.count>=this.passLine;
         }
     }
-    // computed: 算出プロパティ（関数）
     // template: HTMLテンプレート
     // components: 外部モジュールとして取り込んだコンポーネントを登録
 });
@@ -33,3 +53,5 @@ const objVue = new Vue({
 console.log("text1="+objVue.text1+" text2="+objVue.text2);
 objVue.text2+=" and React";
 console.log("text2="+objVue.text2);
+objVue.name+=" taro";
+console.log("name="+objVue.name);

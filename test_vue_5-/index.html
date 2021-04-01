@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>リストレンダリングの例</title>
+  </head>
+  <body>
+    <div id="app">
+      <ul><!-- 配列をレンダリング (値,index) :keyはv-bind:keyの省略形-->
+        <li v-for="(item, i) in fruits" :key="i">
+          [{{ i }}] : {{ item }}
+        </li>
+      </ul>
+      <ul><!-- オブジェクトをレンダリング 値,キー,index(省略可)-->
+        <li v-for="(value, key, i) in obj" :key="key">
+          {{ key }} : {{ value }} [{{ i }}]
+        </li>
+      </ul>
+      <ul><!-- オブジェクトをレンダリング 値,キー,index(省略可)-->
+        <li v-for="(value, key) in obj" :key="key">
+          {{ key }} : {{ value }}
+        </li>
+      </ul>
+      <ul><!-- オブジェクトの配列をレンダリング -->
+        <li v-for="(item, i) in items" :key="i">
+          {{ item.id }} : {{ item.label }}
+        </li>
+      </ul>
+      <ul class="header-menu"><!-- オブジェクトの配列をレンダリング -->
+        <li v-for="(menu, i) in menus" :key="i" class="menu-item">
+          <a :href="menu.path">{{ menu.label }}</a>
+        </li>
+      </ul>
+      <button v-on:click="handleClick">Push</button>
+      <button v-on:click="handleClick2('push')">Push</button>
+      <button v-on:click="handleClick2('pop')">Pop</button>
+      <button v-on:click="handleClick2('unshift')">Unshift</button>
+      <button v-on:click="handleClick2('shift')">Shift</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script><!-- 最新バージョン -->
+    <script src="./script/script.js"></script>
+  </body>
+</html>

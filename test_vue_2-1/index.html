@@ -3,24 +3,25 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>sample</title>
+    <title>基本（イベント、算出プロパティ、メソッド、条件付きレンダリング）</title>
   </head>
   <body>
     <div id="app">
-      <button @click="handleClick">Push</button>
       <button v-on:click="handleClick">Push</button>
       <p>{{ text1 }} and {{ text2 }}</p>
       <button @click="increment">+1</button>
       <button @click="decrement">-1</button>
-      <p>{{ count }}</p>
-      <div v-if="count >= 6">
-        <p>合格！</p>
-        <section><h2>おめでとうございます！</h2></section>
-      </div>
-      <div v-else>
-        <p>不合格</p>
-        <section><h2>残念でした</h2></section>
-      </div>
+      <p>{{ count }} & {{ fInit }}</p>
+      <div v-if="fInit">ようこそ（fInit）</div>
+      <div v-else>また来た（fInit）</div>
+      <div v-if="isInit">ようこそ（isInit）</div>
+      <div v-else>また来た（isInit）</div>
+      <div v-if="isNotInit">また来た（isNotInit）</div>
+      <div v-else>初めて（isNotInit）</div>
+      <div v-if="count >= 6"><p>合格！</p></div>
+      <div v-else><p>不合格</p></div>
+      <div v-show="isPass"><p>合格！（v-show）</p></div>
+      <input v-model="name" type="text" name="name"/>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script><!-- 最新バージョン -->
     <script src="./script/script.js"></script>
