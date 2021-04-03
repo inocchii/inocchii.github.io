@@ -17,10 +17,23 @@ const objVue = new Vue({
             range: 10,
             red: 0,
             green: 0,
-            blue: 0
+            blue: 0,
+            // クラスバインディング用
+            isActive: true,
+            // オブジェクトで
+            classObj: {
+                error: true,
+                'is-active': true
+            }
         };
     },
     // methods: メソッド定義 = Action
+    methods: {
+        // ハンバーガーボタン用
+        tobbleButton() {
+            this.isActive = !this.isActive;
+        }
+    },
     // computed: 算出プロパティ（関数）
     computed: {
         // 基本部用
@@ -32,7 +45,7 @@ const objVue = new Vue({
         bindStyle2() {
             // プロパティが変化することで算出プロパティも変化
             return `width: ${this.range}px; height: ${this.range}px; background: rgb(${this.red},${this.green},${this.blue})`;
-        }
+        },
     }
     // template: HTMLテンプレート
     // components: 外部モジュールとして取り込んだコンポーネントを登録

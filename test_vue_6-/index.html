@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="stylesheet" href="./css/style.css" />
-    <title>スタイルバインディングの例</title>
+    <title>スタイルバインディング・クラスバインディングの例</title>
   </head>
   <body>
     <div id="app">
@@ -14,24 +14,29 @@
       <!-- 　注意点：CSSプロパティ名はキャメルケースで指定する（background-color -> backgroundColor） -->
       <div :style="{ width: width + 'px', height: height + 'px', backgroundColor: bgColor}">div style by object</div>
       <!-- 大きさと色を変化させる -->
-      <!-- バインドされたスライダを変化させることでプロパティが変化し算出プロパティ(bindStyle2)も変化-->
-      <p>
-        <span>大きさ：</span>
+      <!-- バインドされたスライダを変化→プロパティ値を変化→算出プロパティ(bindStyle2)変化→バインドされたstyle属性が変化 -->
+      <p><span>大きさ：</span>
         <input v-model="range" type="range" max="500" min="10" />
       </p>
-      <p>
-        <span>赤：</span>
+      <p><span>赤：</span>
         <input v-model="red" type="range" max="255" min="0" />
       </p>
-      <p>
-        <span>緑：</span>
+      <p><span>緑：</span>
         <input v-model="green" type="range" max="255" min="0" />
       </p>
-      <p>
-        <span>青：</span>
+      <p><span>青：</span>
         <input v-model="blue" type="range" max="255" min="0" />
       </p>
       <div :style="bindStyle2"></div>
+      <!-- クラスバインディング -->
+      <div :class="{ 'is-active': isActive }">クラスバインディング</div>
+      <!-- クラスバインディング(オブジェクトで)複数クラスを制御 -->
+      <div :class="classObj">クラスバインディング(by Object)</div>
+      <!-- クラスバインディング -->
+      <div :class="{'is-active': isActive}" class="btn-humburger" @click="tobbleButton">
+        <div></div>
+        <div></div>
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script><!-- 最新バージョン -->
     <script src="./script/script.js"></script>
