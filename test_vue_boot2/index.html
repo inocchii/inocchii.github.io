@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="https://kit.fontawesome.com/3a7c002adc.js" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!--
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    -->
+    <title>Vue＆Boot 画面パターン</title>
+  </head>
+<body>
+  <div id="app" class="container pt-0">
+    <!-- L1-1 ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+      <div class="container">
+        <!-- ブランド -->
+        <a class="navbar-brand" href="index.html">Vue＆Boot</a>
+        <!-- 切り替えボタン -->
+        <!--
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        -->
+        <a class="btn" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </div>
+    </nav>
+    <!-- L1-2 リスト型 -->
+    <div class="p-3">
+      <div class="">★リンクリスト</div>
+      <div id="list1-2" class="list-group">
+        <a href="#list1-2" class="list-group-item list-group-item-action active">リンクリスト</a>
+        <a href="#myTab" class="list-group-item list-group-item-action">タブ型</a>
+        <a href="#myScroll" class="list-group-item list-group-item-action">カード（横スクロール）</a>
+        <a href="#myCards" class="list-group-item list-group-item-action">カード各種</a>
+      </div>
+    </div>
+    <!-- L1-3 トップメニュー（タブ型＆カード又はテーブル型） -->
+    <div class="p-3">
+      <div class="">★タブ</div>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pattern-tab" data-toggle="tab" href="#pattern" role="tab" aria-controls="pattern" aria-selected="false">
+            Pattern
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="theme-tab" data-toggle="tab" href="#theme" role="tab" aria-controls="theme" aria-selected="false">
+            Theme
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="tasks-tab" data-toggle="tab" href="#tasks" role="tab" aria-controls="tasks" aria-selected="false">
+            Tasks
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="problem-tab" data-toggle="tab" href="#problem" role="tab" aria-controls="problem" aria-selected="false">
+            Problem
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="links-tab" data-toggle="tab" href="#links" role="tab" aria-controls="links" aria-selected="false">
+            Links
+          </a>
+        </li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content col-12">
+        <!-- Home Tab -->
+        <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="">構造</div>
+          <ul id="list1-1" class="list-group list-group-flush">
+            <li class="list-group-item">subject<small></small></li>
+            <li class="list-group-item d-flex justify-content-between">Pattern<small>subjectにおける基本パターン</small></li>
+            <li class="list-group-item d-flex justify-content-between">Theme<small>subjectごとのtheme</small></li>
+            <li class="list-group-item d-flex justify-content-between">Task<small>subject内での解決課題</small></li>
+            <li class="list-group-item d-flex justify-content-between">Link<small>subjectに関連するリンク</small></li>
+            <li class="list-group-item d-flex justify-content-between">Problem<small>subject内で発生した問題点</small></li>
+          </ul>
+        </div>
+        <!-- pattern Tab -->
+        <div class="tab-pane" id="pattern" role="tabpanel" aria-labelledby="pattern-tab">
+          <div class="">パターンリスト</div>
+          <div class="list-group">
+            <a href="#list1-2" class="list-group-item list-group-item-action">リンクリスト</a>
+            <a href="#myTab" class="list-group-item list-group-item-action">タブ型</a>
+            <a href="#myScroll" class="list-group-item list-group-item-action">カード（横スクロール）</a>
+            <a href="#myCards" class="list-group-item list-group-item-action">カード各種</a>
+          </div>
+        </div>
+        <!-- theme Tab -->
+        <div class="tab-pane" id="theme" role="tabpanel" aria-labelledby="theme-tab">
+          <div class="">テーマリスト</div>
+          <div class="list-group">
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">タブによる切り替え</h6>
+                <small>タブエリア自体と以外の切り替え</small>
+              </div>
+              <p class="mb-1">タブエリア以外はVue(v-if)で切り替える</p>
+              <small>タブ切り替え時に値変化を起こし、その値を条件に表示をコントロール</small>
+            </a>
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">ナビによる切り替え１</h6>
+                <small>同一ファイル内でのページ切り替え</small>
+              </div>
+              <p class="mb-1">Vue(v-if)で切り替える</p>
+              <small>ナビ切り替え時に値変化を起こし、その値を条件にテンプレートを差し替える</small>
+            </a>
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">ナビによる切り替え２</h6>
+                <small>別ファイルへの切り替え</small>
+              </div>
+              <p class="mb-1">Vue(v-if)で切り替える</p>
+              <small>ナビ切り替え時に値変化を起こし、その値を条件に別ファイルのテンプレートで差し替える</small>
+            </a>
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">検索条件等による内容の読みかえ１</h6>
+                <small>手元のデータ群から</small>
+              </div>
+              <p class="mb-1">Vueによるフィルタ</p>
+              <small>指定条件を元にフィルタで読み替える</small>
+            </a>
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">検索条件等による内容の読みかえ２</h6>
+                <small>サーバサイドから</small>
+              </div>
+              <p class="mb-1">Ajaxによる再取得</p>
+              <small>サーバサイドからデータを取得することで読み替える</small>
+            </a>
+          </div>
+        </div>
+        <!-- Tasks Tab -->
+        <div class="tab-pane" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
+          <div class="">VueとMonacaの共存（Onsen-UIを使わないパターン）</div>
+          <div class="list-group">
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">Vue Cli</h6>
+                <small>Vue開発のベース</small>
+              </div>
+              <small>Vue Cli 開発環境の構築</small>
+            </a>
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">Vue Cli → Monaca → アプリ化</h6>
+                <small>MonacaとVueの共存</small>
+              </div>
+              <small>Vue Cli で開発し、Monacaにアップしてアプリ化したい</small>
+            </a>
+          </div>
+        </div>
+        <!-- problem Tab -->
+        <div class="tab-pane" id="problem" role="tabpanel" aria-labelledby="problem-tab">
+          <div class="row">
+            <div class="card col-4">row & card col-4</div>
+            <div class="card col-4">row & card col-4</div>
+            <div class="card col-4">row & card col-4</div>
+          </div>
+          <div class="row">
+            <div class="card col-4">row & card col-4</div>
+            <div class="card col-4">row & card col-4</div>
+            <div class="card col-4">row & card col-4</div>
+          </div>
+        </div>
+        <div class="tab-pane" id="links" role="tabpanel" aria-labelledby="links-tab">
+          <div class="row list-group list-group-horizontal">
+            <a href="" class="list-group-item list-group-item-action col-4">
+              <div class="d-flex justify-content-between">
+                <h6 class="">リンク１</h6>
+                <small>リンク１</small>
+              </div>
+              <p class="mb-1">Ajaxによる再取得</p>
+              <small>サーバサイドからデータを取得することで読み替える</small>
+            </a>
+            <a href="" class="list-group-item list-group-item-action col-4">
+              <p class="mb-1">Ajaxによる再取得</p>
+              <small>サーバサイドからデータを取得することで読み替える</small>
+            </a>
+            <a href="" class="list-group-item list-group-item-action col-4">
+              <p class="mb-1">Ajaxによる再取得</p>
+              <small>サーバサイドからデータを取得することで読み替える</small>
+            </a>
+            <a href="" class="list-group-item list-group-item-action col-4">
+              <p class="mb-1">Ajaxによる再取得</p>
+              <small>サーバサイドからデータを取得することで読み替える</small>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- L1-4 おすすめ（横スクロール型） -->
+    <div id="myScroll" class="p-3">
+      <div class="">★おすすめ</div>
+      <div class="row flex-row flex-nowrap overflow-auto">
+        <div class="card card-block col-5 mx-1">Card 1<br>2行目<br>3行目</div>
+        <div class="card card-block col-5 mx-1">Card 2</div>
+        <div class="card card-block col-5 mx-1">Card 3</div>
+        <div class="card card-block col-5 mx-1">Card 4</div>
+      </div>
+    </div>
+    <!-- L1-5 記事（カードデッキ） -->
+    <div id="myCards" class="p-3">
+      <div class="">★カードデッキ</div>
+      <div class="card-deck">
+      <!-- <div class="card-group"> -->
+      <!-- <div class="card-columns"> -->
+        <div class="card card-block col">Card 1<br>2行目</div>
+        <div class="card card-block col">Card 2</div>
+      </div>
+    </div>
+    <!-- L1-6 記事（カードグループ） -->
+    <div class="p-3">
+      <div class="">★カードグループ</div>
+      <div class="card-group">
+        <div class="card">
+          <img src="img/img7.jpg" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p>Card body<br>2行目</p>
+            <a class="btn btn-primary" href="#">Detail</a> 
+          </div>
+        </div>
+        <div class="card">
+          <img src="img/img8.jpg" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p>Card body<br>2行目</p>
+            <a class="btn btn-primary" href="#">Detail</a> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- L1-7 記事（グリッド型） -->
+    <div class="p-3">
+      <div class="">★グリッド</div>
+      <div class="container">
+        <div class="row">
+          <div class="col-3 border">grid col-3<br>2行目<br>3行目</div>
+          <div class="col-3 border">grid col-3</div>
+          <div class="col-3 border">grid col-3</div>
+          <div class="col-3 border">grid col-3</div>
+        </div>
+        <div class="row">
+          <div class="col-3 border">grid col-3<br>2行目<br>3行目</div>
+          <div class="col-3 border">grid col-3</div>
+          <div class="col-3 border">grid col-3</div>
+          <div class="col-3 border">grid col-3</div>
+        </div>
+        <div class="row">
+          <div class="col-3 border">grid col-3<br>2行目<br>3行目</div>
+          <div class="col-3 border">grid col-3</div>
+          <div class="col-3 border">grid col-3</div>
+          <div class="col-3 border">grid col-3</div>
+        </div>
+      </div>
+    </div>
+    <!-- L1-7 記事（１カード） -->
+    <div class="p-3">
+      <div class="">★１カード(col-md-4/col-md-8)</div>
+      <div class="card">
+        <div class="row no-gutters">
+          <div class="col-md-4 my-auto">
+            <img class="card-img" src="img/img1.jpg">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Card Title</h5>
+              <p>ここに写真の説明などを記載します。これは例えば作品集の一部を写真で示しておいて、下のリンクから作品集ページに飛んでもらうような仕掛けを作ることができます。</p>
+              <a class="btn btn-primary" href="#">Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 下段ナビエリア -->
+    <!-- 下段ナビがコンテンツを隠さないように余白divを設置 -->
+    <div style="height: 70px;">end</div>
+    <!-- 下段ナビ -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
+      <div class="container border-top">
+        <!-- アイコン -->
+        <a class="btn" href="#" role="button">
+          <i class="fas fa-home"></i><br>ホーム</a>
+        <a class="btn" href="#" role="button">
+          <i class="fas fa-edit"></i>
+          <span class="badge badge-pill badge-danger">2</span><br>発注</a>
+        <a class="btn" href="#" role="button">
+          <i class="fas fa-database"></i><br>商品</a>
+        <a class="btn" href="#" role="button">
+          <i class="fas fa-search"></i><br>検索</a>
+        <a class="btn" href="#" role="button">
+          <i class="fas fa-ellipsis-h"></i><br>その他</a>
+      </div>
+    </nav>
+    <!-- </div> -->
+
+  </div>
+  <!--
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script><!-- 最新バージョン -->
+  <script src="./script/script.js"></script>
+  <script>
+    /*
+    $('#myTab a').on('click', function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    })
+    */
+  </script>
+
+</body>
+</html>
