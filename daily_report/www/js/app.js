@@ -1,3 +1,3 @@
-const applicationKey = 'dff6fdb302680d70067bc8c93ef363f269b5616330878ecd57a1fa4fc14e3eed';
-const clientKey = '5924bd6deecff53942cdb7a9ffef0c6c367db6df0a58c26ab9b9472f235b2e30';
+const applicationKey = '676d04b89ce11e6121f3c08596268f65b1761c0f1e19a95f2cdff9da9ca15194';
+const clientKey = '6f9629e78ce614f991b56d64c003a82f91727a0b65969efce0648e4c56e4478a';
 const ncmb = new NCMB(applicationKey, clientKey);
